@@ -1,0 +1,20 @@
+{
+  "name": "astronaut-health-environmental-monitor",
+  "version": "1.0.0",
+  "description": "Minimal, clean astronaut health and environmental monitoring web application with Turso database integration.",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "keywords": [
+    "astronaut",
+    "telemetry",
+    "turso",
+    "monitoring",
+    "vitals",
+    "environmental"
+  ],
+  "author": "",
+  "license": "MIT"
+}

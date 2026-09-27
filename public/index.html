@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astronaut Health & Environmental Monitoring</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">Astronaut Monitoring System</div>
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-page="home" id="nav-home">Home</button>
+        <button class="nav-btn" data-page="vitals" id="nav-vitals">Astronaut Vitals</button>
+        <button class="nav-btn" data-page="environmental" id="nav-environmental">Environmental Factors</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- PAGE 1: HOME -->
+    <section id="page-home" class="page-view active">
+      <div class="home-layout">
+        <div class="home-intro">
+          <h1 class="welcome-heading">Welcome, Astronaut</h1>
+          <p class="welcome-description">
+            This application monitors astronaut vitals and environmental conditions in real time using telemetry data.
+          </p>
+
+          <div class="home-navigation">
+            <button class="home-nav-card" onclick="navigateTo('vitals')">
+              <h2>Astronaut Vitals</h2>
+              <p>View physiological parameters, status indicators, and vital trends.</p>
+            </button>
+            <button class="home-nav-card" onclick="navigateTo('environmental')">
+              <h2>Environmental Factors</h2>
+              <p>View atmospheric, toxicological, and habitat parameters.</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Human Anatomical Visualization -->
+        <div class="anatomical-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Physiological Body Map</h2>
+            <div id="body-status-badge" class="status-badge status-neutral">No vital data available</div>
+          </div>
+          
+          <div class="body-svg-container">
+            <svg id="human-body-svg" viewBox="0 0 280 460" xmlns="http://www.w3.org/2000/svg" class="body-svg">
+              <defs>
+                <!-- Filter for subtle depth -->
+                <filter id="subtle-shadow" x="-5%" y="-5%" width="110%" height="110%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.25"/>
+                </filter>
+              </defs>
+
+              <!-- Body Base Silhouette -->
+              <g id="body-silhouette-group">
+                <!-- Head -->
+                <path id="body-head" class="body-part body-neutral" d="M140,25 C158,25 170,38 170,60 C170,80 156,92 140,92 C124,92 110,80 110,60 C110,38 122,25 140,25 Z" />
+                <!-- Neck -->
+                <path id="body-neck" class="body-part body-neutral" d="M132,92 L148,92 L150,105 L130,105 Z" />
+                <!-- Torso & Pelvis -->
+                <path id="body-torso" class="body-part body-neutral" d="M130,105 L150,105 C178,107 195,116 195,145 L190,240 C190,260 175,275 140,275 C105,275 90,260 90,240 L85,145 C85,116 102,107 130,105 Z" />
+                <!-- Left Arm -->
+                <path id="body-arm-left" class="body-part body-neutral" d="M85,115 C72,125 60,150 56,190 L52,260 C50,272 60,275 66,265 L76,195 C78,165 84,145 92,130 Z" />
+                <!-- Right Arm -->
+                <path id="body-arm-right" class="body-part body-neutral" d="M195,115 C208,125 220,150 224,190 L228,260 C230,272 220,275 214,265 L204,195 C202,165 196,145 188,130 Z" />
+                <!-- Left Leg -->
+                <path id="body-leg-left" class="body-part body-neutral" d="M102,270 L135,270 L130,360 L126,435 C125,445 110,445 108,435 L106,360 L100,275 Z" />
+                <!-- Right Leg -->
+                <path id="body-leg-right" class="body-part body-neutral" d="M145,270 L178,270 L180,275 L174,360 L172,435 C170,445 155,445 154,435 L150,360 L145,270 Z" />
+              </g>
+
+              <!-- Major Internal Organs -->
+              <!-- 1. Brain -->
+              <g id="organ-brain" class="organ organ-neutral" data-organ="brain" data-name="Brain">
+                <path d="M125,44 C125,36 132,32 140,32 C148,32 155,36 155,44 C158,48 158,56 154,62 C150,68 146,70 140,70 C134,70 130,68 126,62 C122,56 122,48 125,44 Z" />
+                <path d="M140,34 L140,68" stroke="#000" stroke-width="0.8" stroke-opacity="0.3" fill="none" />
+              </g>
+
+              <!-- 2. Lungs -->
+              <g id="organ-lungs" class="organ organ-neutral" data-organ="lungs" data-name="Lungs">
+                <!-- Left Lung lobe (anatomical right side of image) -->
+                <path d="M110,128 C118,124 128,128 132,136 L132,175 C128,185 112,185 106,172 C100,160 102,138 110,128 Z" />
+                <!-- Right Lung lobe -->
+                <path d="M170,128 C162,124 152,128 148,136 L148,175 C152,185 168,185 174,172 C180,160 178,138 170,128 Z" />
+              </g>
+
+              <!-- 3. Heart -->
+              <g id="organ-heart" class="organ organ-neutral" data-organ="heart" data-name="Heart">
+                <path d="M136,142 C134,136 142,132 146,138 C150,132 158,136 156,142 C154,152 146,160 146,164 C146,160 138,152 136,142 Z" />
+              </g>
+
+              <!-- 4. Liver -->
+              <g id="organ-liver" class="organ organ-neutral" data-organ="liver" data-name="Liver">
+                <path d="M112,188 C124,184 142,186 146,192 C146,204 135,214 116,212 C108,210 106,198 112,188 Z" />
+              </g>
+
+              <!-- 5. Stomach -->
+              <g id="organ-stomach" class="organ organ-neutral" data-organ="stomach" data-name="Stomach">
+                <path d="M150,192 C158,188 170,194 172,204 C174,216 160,222 152,220 C146,218 144,202 150,192 Z" />
+              </g>
+
+              <!-- 6. Kidneys -->
+              <g id="organ-kidneys" class="organ organ-neutral" data-organ="kidneys" data-name="Kidneys">
+                <!-- Left Kidney -->
+                <ellipse cx="120" cy="228" rx="6" ry="10" transform="rotate(-10 120 228)" />
+                <!-- Right Kidney -->
+                <ellipse cx="160" cy="228" rx="6" ry="10" transform="rotate(10 160 228)" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Organ Status Details List -->
+          <div class="organ-status-list">
+            <div class="organ-item" id="organ-item-brain">
+              <span class="status-dot dot-neutral"></span>
+              <span class="organ-name">Brain</span>
+              <span class="organ-val">No data</span>
+            </div>
+            <div class="organ-item" id="organ-item-heart">
+              <span class="status-dot dot-neutral"></span>
+              <span class="organ-name">Heart</span>
+              <span class="organ-val">No data</span>
+            </div>
+            <div class="organ-item" id="organ-item-lungs">
+              <span class="status-dot dot-neutral"></span>
+              <span class="organ-name">Lungs</span>
+              <span class="organ-val">No data</span>
+            </div>
+            <div class="organ-item" id="organ-item-liver">
+              <span class="status-dot dot-neutral"></span>
+              <span class="organ-name">Liver</span>
+              <span class="organ-val">No data</span>
+            </div>
+            <div class="organ-item" id="organ-item-stomach">
+              <span class="status-dot dot-neutral"></span>
+              <span class="organ-name">Stomach</span>
+              <span class="organ-val">No data</span>
+            </div>
+            <div class="organ-item" id="organ-item-kidneys">
+              <span class="status-dot dot-neutral"></span>
+              <span class="organ-name">Kidneys</span>
+              <span class="organ-val">No data</span>
+            </div>
+          </div>
+
+          <!-- Status Color Legend -->
+          <div class="status-legend">
+            <div class="legend-item"><span class="status-dot dot-normal"></span> Normal</div>
+            <div class="legend-item"><span class="status-dot dot-warning"></span> Warning</div>
+            <div class="legend-item"><span class="status-dot dot-critical"></span> Critical</div>
+            <div class="legend-item"><span class="status-dot dot-neutral"></span> No Data</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: ASTRONAUT VITALS -->
+    <section id="page-vitals" class="page-view">
+      <div class="page-header">
+        <h1 class="page-title">Astronaut Vitals</h1>
+        <p class="page-subtitle">Physiological monitoring and vital sign telemetry with dynamic status indicators.</p>
+      </div>
+      <div id="vitals-grid" class="vitals-grid">
+        <!-- Injected dynamically via JavaScript from real Turso database data -->
+      </div>
+    </section>
+
+    <!-- PAGE 3: ENVIRONMENTAL FACTORS -->
+    <section id="page-environmental" class="page-view">
+      <div class="page-header">
+        <h1 class="page-title">Environmental Factors</h1>
+        <p class="page-subtitle">Atmospheric composition, physical conditions, radiation, and water quality.</p>
+      </div>
+      <div id="environmental-grid" class="environmental-grid">
+        <!-- Injected dynamically via JavaScript from real Turso database data -->
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

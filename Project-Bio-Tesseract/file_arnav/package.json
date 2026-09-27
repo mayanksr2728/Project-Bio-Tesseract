@@ -1,0 +1,17 @@
+{
+  "name": "project-bio-tesseract",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Project Bio-Tesseract - Astronaut Bio-Telemetry & Deep Space EVA Mission Monitor",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.2.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
